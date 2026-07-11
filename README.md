@@ -338,5 +338,3 @@ For issues, questions, or suggestions, please:
 
 **Last Updated**: July 2026
 
-Made with ❤️ by the SnapCart team
-
