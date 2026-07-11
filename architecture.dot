@@ -1,0 +1,83 @@
+digraph SnapCartArchitecture {
+    rankdir=LR;
+    bgcolor=white;
+    
+    // Define node styles
+    node [shape=box, style=rounded, fontname="Arial"];
+    
+    // Client Apps Section
+    subgraph cluster_client {
+        label="Client Apps";
+        style=dashed;
+        bgcolor="#E8F4F8";
+        
+        webapp [label="WebApp\n(Blazor)", shape=box, style="rounded,filled", fillcolor="#FFE680", fontsize=11, fontweight=bold];
+    }
+    
+    // .NET Aspire Section
+    subgraph cluster_aspire {
+        label=".NET Aspire\n(Orchestration)";
+        style=dashed;
+        bgcolor="#F0E6FF";
+        
+        apphost [label="App Host\n(Aspire)", shape=box, style="rounded,filled", fillcolor="#D4BBFF", fontsize=11, fontweight=bold];
+    }
+    
+    // EShop Microservices Section
+    subgraph cluster_services {
+        label="EShop Microservices";
+        style=dashed;
+        bgcolor="#E8F5E9";
+        
+        catalog [label="Catalog\nService", shape=box, style="rounded,filled", fillcolor="#90EE90", fontsize=11, fontweight=bold];
+        basket [label="Basket\nService", shape=box, style="rounded,filled", fillcolor="#90EE90", fontsize=11, fontweight=bold];
+    }
+    
+    // Databases Section
+    subgraph cluster_databases {
+        label="Data & Cache";
+        style=dashed;
+        bgcolor="#FFF9E6";
+        
+        postgres [label="PostgreSQL\n(Database)", shape=cylinder, fillcolor="#4DB8FF", fontcolor="white", fontsize=10, fontweight=bold];
+        redis [label="Redis\n(Cache)", shape=cylinder, fillcolor="#DC3545", fontcolor="white", fontsize=10, fontweight=bold];
+    }
+    
+    // Infrastructure Section
+    subgraph cluster_infra {
+        label="Infrastructure";
+        style=dashed;
+        bgcolor="#FFE6E6";
+        
+        keycloak [label="Keycloak\n(Authentication)", shape=box, style="rounded,filled", fillcolor="#FFA07A", fontsize=11, fontweight=bold];
+        rabbitmq [label="RabbitMQ\n(Message Broker)", shape=box, style="rounded,filled", fillcolor="#FF8C00", fontsize=10, fontweight=bold];
+    }
+    
+    // Edges - Client to Services
+    webapp -> catalog [label="HTTP/gRPC", fontsize=9, style=solid, penwidth=2];
+    webapp -> basket [label="HTTP/gRPC", fontsize=9, style=solid, penwidth=2];
+    
+    // Edges - Services to Databases
+    catalog -> postgres [label="SQL", fontsize=9, style=solid, penwidth=2];
+    basket -> redis [label="Cache", fontsize=9, style=solid, penwidth=2];
+    
+    // Edges - Services to Infrastructure
+    catalog -> keycloak [label="Auth", fontsize=9, style=dashed, penwidth=1.5];
+    basket -> keycloak [label="Auth", fontsize=9, style=dashed, penwidth=1.5];
+    catalog -> rabbitmq [label="Events", fontsize=9, style=dotted, penwidth=1.5];
+    basket -> rabbitmq [label="Events", fontsize=9, style=dotted, penwidth=1.5];
+    
+    // Edges - Orchestration
+    apphost -> catalog [label="Orchestrates", fontsize=8, style=solid, penwidth=1, constraint=false];
+    apphost -> basket [label="Orchestrates", fontsize=8, style=solid, penwidth=1, constraint=false];
+    
+    // Legend
+    subgraph cluster_legend {
+        label="Legend";
+        style=dashed;
+        bgcolor="#F5F5F5";
+        
+        legend1 [label="━━ Synchronous\n- - - Authentication\n· · · Asynchronous", shape=note, fontsize=8, margin="0.2,0.1"];
+    }
+}
+
