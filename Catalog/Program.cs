@@ -2,19 +2,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.AddServiceDefaults();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-//builder.Services.AddOpenApi();
+builder.AddNpgsqlDbContext<ProductDbContext>(connectionName:"catalogdb");
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 app.MapDefaultEndpoints();
+app.UseMigration();
 app.UseHttpsRedirection();
-
-// if (app.Environment.IsDevelopment())
-// {
-//     app.MapOpenApi();
-// }
-
 
 
 var summaries = new[]
