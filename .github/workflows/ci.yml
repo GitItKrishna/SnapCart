@@ -95,7 +95,7 @@ jobs:
         output: 'trivy-results.sarif'
     
     - name: Upload Trivy results to GitHub Security
-      uses: github/codeql-action/upload-sarif@v2
+      uses: github/codeql-action/upload-sarif@v3
       with:
         sarif_file: 'trivy-results.sarif'
 
@@ -128,8 +128,12 @@ jobs:
       continue-on-error: true
     
     - name: Upload dependency-check results
-      uses: github/codeql-action/upload-sarif@v2
+      uses: github/codeql-action/upload-sarif@v3
       with:
         sarif_file: 'dependency-check-report.sarif'
-      if: always()
+        wait-for-processing: true
+      if: hashFiles('dependency-check-report.sarif') != ''
+      continue-on-error: true
+
+
 
