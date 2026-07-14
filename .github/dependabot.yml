@@ -1,0 +1,48 @@
+version: 2
+updates:
+  # Enable version updates for NuGet dependencies
+  - package-ecosystem: "nuget"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "03:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "GitItKrishna"
+    assignees:
+      - "GitItKrishna"
+    labels:
+      - "dependencies"
+      - "nuget"
+    commit-message:
+      prefix: "chore(deps):"
+      prefix-development: "chore(deps-dev):"
+      include: "scope"
+    pull-request-branch-name:
+      separator: "/"
+    rebase-strategy: "auto"
+    allow:
+      - dependency-type: "all"
+    ignore:
+      # Add any packages you want to ignore here
+      # - dependency-name: "Microsoft.AspNetCore"
+      #   versions: ["1.x", "2.x"]
+
+  # Enable version updates for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "03:00"
+    reviewers:
+      - "GitItKrishna"
+    assignees:
+      - "GitItKrishna"
+    labels:
+      - "ci"
+      - "github-actions"
+    commit-message:
+      prefix: "ci(actions):"
+
