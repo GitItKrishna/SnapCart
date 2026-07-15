@@ -1,8 +1,9 @@
 using FastEndpoints;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Catalog.Endpoints;
 
-[HttpGet("/products")]
+[HttpGet("/products"), AllowAnonymous]
 public class GetProductsEndpoint(ProductService service, ILogger<GetProductsEndpoint> logger) : EndpointWithoutRequest<IEnumerable<Product>>
 {
 

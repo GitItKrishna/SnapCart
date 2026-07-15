@@ -1,4 +1,5 @@
 using FastEndpoints;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Catalog.Endpoints;
 
@@ -11,7 +12,7 @@ public class UpdateProductRequest
     public string? ImageUrl { get; set; }
 }
 
-[HttpPut("/products/{id}")]
+[HttpPut("/products/{id}"), AllowAnonymous]
 public class UpdateProductEndpoint(ProductService service, ILogger<UpdateProductEndpoint> logger) : Endpoint<UpdateProductRequest>
 {
 

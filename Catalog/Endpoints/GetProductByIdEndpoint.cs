@@ -1,4 +1,5 @@
 using FastEndpoints;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Catalog.Endpoints;
 
@@ -7,7 +8,7 @@ public class GetProductByIdRequest
     public int Id { get; set; }
 }
 
-[HttpGet("/products/{id}")]
+[HttpGet("/products/{id}"), AllowAnonymous]
 public class GetProductByIdEndpoint(ProductService service, ILogger<GetProductByIdEndpoint> logger) : Endpoint<GetProductByIdRequest, Product>
 {
 

@@ -1,8 +1,9 @@
 using FastEndpoints;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Catalog.Endpoints;
 
-[HttpPost("/products")]
+[HttpPost("/products"), AllowAnonymous]
 public class CreateProductEndpoint(ProductService service, ILogger<CreateProductEndpoint> logger) : Endpoint<Product>
 {
 

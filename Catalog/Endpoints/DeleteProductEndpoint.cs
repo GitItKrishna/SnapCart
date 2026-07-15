@@ -1,4 +1,5 @@
 using FastEndpoints;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Catalog.Endpoints;
 
@@ -7,7 +8,7 @@ public class DeleteProductRequest
     public int Id { get; set; }
 }
 
-[HttpDelete("/products/{id}")]
+[HttpDelete("/products/{id}"), AllowAnonymous]
 public class DeleteProductEndpoint(ProductService service, ILogger<DeleteProductEndpoint> logger) : Endpoint<DeleteProductRequest>
 {
 
