@@ -11,6 +11,7 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="FastEndpoints" Version="6.0.0" />
         <ProjectReference Include="..\ServiceDefaults\ServiceDefaults.csproj" />
         <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="13.4.6" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.2"/>
