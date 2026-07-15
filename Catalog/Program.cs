@@ -6,8 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
 builder.AddNpgsqlDbContext<ProductDbContext>(connectionName:"catalogdb");
 builder.Services.AddScoped<ProductService>();
-builder.Services.AddFastEndpoints();
+builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
+builder.Services.AddFastEndpoints();
 var app = builder.Build();
 // Configure the HTTP request pipeline.
  app.MapDefaultEndpoints();
