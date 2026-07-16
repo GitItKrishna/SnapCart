@@ -52,8 +52,8 @@ digraph SnapCartArchitecture {
         catalog [label=<<B>Catalog Service</B><BR/><FONT POINT-SIZE="9">FastEndpoints REST API</FONT><BR/><FONT POINT-SIZE="8" COLOR="#047857">GET/POST/PUT/DELETE /products</FONT>>,
                  fillcolor="#D1FAE5", fontcolor="#065F46", color="#10B981", penwidth=1.8];
 
-        basket [label=<<B>Basket Service</B><BR/><FONT POINT-SIZE="9">shopping cart</FONT><BR/><FONT POINT-SIZE="8"><I>planned</I></FONT>>,
-                fillcolor="#F1F5F9", fontcolor="#94A3B8", color="#CBD5E1", style="rounded,filled,dashed"];
+        basket [label=<<B>Cart Service</B><BR/><FONT POINT-SIZE="9">shopping cart</FONT><BR/><FONT POINT-SIZE="8">FastEndpoints REST API</FONT>>,
+                fillcolor="#D1FAE5", fontcolor="#065F46", color="#10B981", penwidth=1.8];
 
         servicedefaults [label=<<B>ServiceDefaults</B><BR/><FONT POINT-SIZE="8">OpenTelemetry &#183; Health checks<BR/>Service discovery &#183; Resilience</FONT>>,
                  shape=component, fillcolor="#ECFDF5", fontcolor="#047857", color="#34D399"];

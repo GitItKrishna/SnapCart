@@ -23,12 +23,15 @@ var redisCache = builder
     .WithLifetime(ContainerLifetime.Persistent);
 
 //projects
-builder.AddProject<Projects.Catalog>("catalog")
+var catalog = builder
+    .AddProject<Projects.Catalog>("catalog")
     .WithReference(catalogDb)
     .WaitFor(catalogDb);
 
-builder.AddProject<Projects.Cart>("cart")
+var cart= builder
+    .AddProject<Projects.Cart>("cart")
     .WithReference(redisCache)
+    .WithReference(catalog)
     .WaitFor(redisCache);
 
 builder.Build().Run();
