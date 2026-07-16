@@ -2,6 +2,8 @@
 
 ![Architecture Diagram](./architecture.svg)
 
+> **Diagram legend:** Solid, coloured nodes and edges are **implemented today** (AppHost, Catalog service, PostgreSQL + pgAdmin, ServiceDefaults). Faded, dashed nodes are **planned on the roadmap** (Blazor WebApp, Basket service, Redis, RabbitMQ, Keycloak). Regenerate with `dot -Tsvg architecture.dot -o architecture.svg` (source: [`architecture.dot`](./architecture.dot)).
+
 ## 📋 Overview
 
 **SnapCart Distributed** is a modern, cloud-native e-commerce platform built using microservices architecture with .NET Aspire orchestration. It demonstrates enterprise-grade distributed system design patterns and best practices for building scalable, resilient applications.

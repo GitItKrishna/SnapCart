@@ -1,83 +1,129 @@
 digraph SnapCartArchitecture {
-    rankdir=LR;
-    bgcolor=white;
-    
-    // Define node styles
-    node [shape=box, style=rounded, fontname="Arial"];
-    
-    // Client Apps Section
+    rankdir=TB;
+    bgcolor="transparent";
+    pad=0.5;
+    nodesep=0.55;
+    ranksep=0.85;
+    splines=spline;
+    fontname="Helvetica";
+    labelloc="t";
+    label=<<FONT POINT-SIZE="24" FACE="Helvetica"><B>SnapCart Distributed &#8212; Architecture</B></FONT><BR/><BR/><FONT POINT-SIZE="12" COLOR="#6B7280">.NET Aspire orchestrated microservices e-commerce platform</FONT><BR/> >;
+
+    node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11,
+          penwidth=1.4, margin="0.26,0.16", color="#94A3B8"];
+    edge [fontname="Helvetica", fontsize=9, color="#94A3B8", fontcolor="#64748B",
+          penwidth=1.4, arrowsize=0.8];
+
+    /* ============================ CLIENT LAYER ============================ */
     subgraph cluster_client {
-        label="Client Apps";
-        style=dashed;
-        bgcolor="#E8F4F8";
-        
-        webapp [label="WebApp\n(Blazor)", shape=box, style="rounded,filled", fillcolor="#FFE680", fontsize=11, fontweight=bold];
+        label=<<FONT POINT-SIZE="12" COLOR="#334155"><B>  Client Layer  </B></FONT>>;
+        labeljust="l";
+        style="rounded,dashed";
+        color="#CBD5E1";
+        fontname="Helvetica";
+        margin=16;
+
+        webapp [label=<<B>Blazor WebApp</B><BR/><FONT POINT-SIZE="9">WebAssembly UI</FONT><BR/><FONT POINT-SIZE="8"><I>planned</I></FONT>>,
+                fillcolor="#F1F5F9", fontcolor="#94A3B8", color="#CBD5E1", style="rounded,filled,dashed"];
     }
-    
-    // .NET Aspire Section
-    subgraph cluster_aspire {
-        label=".NET Aspire\n(Orchestration)";
-        style=dashed;
-        bgcolor="#F0E6FF";
-        
-        apphost [label="App Host\n(Aspire)", shape=box, style="rounded,filled", fillcolor="#D4BBFF", fontsize=11, fontweight=bold];
+
+    /* ========================= ORCHESTRATION LAYER ======================== */
+    subgraph cluster_orchestration {
+        label=<<FONT POINT-SIZE="12" COLOR="#5B21B6"><B>  .NET Aspire Orchestration  </B></FONT>>;
+        labeljust="l";
+        style="rounded,filled";
+        color="#DDD6FE";
+        fillcolor="#FAF5FF";
+        margin=16;
+
+        apphost [label=<<B>AppHost</B><BR/><FONT POINT-SIZE="9">Aspire app model &#183; service wiring</FONT>>,
+                 fillcolor="#EDE9FE", fontcolor="#4C1D95", color="#8B5CF6"];
     }
-    
-    // EShop Microservices Section
+
+    /* ========================== MICROSERVICES ============================= */
     subgraph cluster_services {
-        label="EShop Microservices";
-        style=dashed;
-        bgcolor="#E8F5E9";
-        
-        catalog [label="Catalog\nService", shape=box, style="rounded,filled", fillcolor="#90EE90", fontsize=11, fontweight=bold];
-        basket [label="Basket\nService", shape=box, style="rounded,filled", fillcolor="#90EE90", fontsize=11, fontweight=bold];
+        label=<<FONT POINT-SIZE="12" COLOR="#065F46"><B>  Microservices  </B></FONT>>;
+        labeljust="l";
+        style="rounded,filled";
+        color="#A7F3D0";
+        fillcolor="#F0FDF4";
+        margin=16;
+
+        catalog [label=<<B>Catalog Service</B><BR/><FONT POINT-SIZE="9">FastEndpoints REST API</FONT><BR/><FONT POINT-SIZE="8" COLOR="#047857">GET/POST/PUT/DELETE /products</FONT>>,
+                 fillcolor="#D1FAE5", fontcolor="#065F46", color="#10B981", penwidth=1.8];
+
+        basket [label=<<B>Basket Service</B><BR/><FONT POINT-SIZE="9">shopping cart</FONT><BR/><FONT POINT-SIZE="8"><I>planned</I></FONT>>,
+                fillcolor="#F1F5F9", fontcolor="#94A3B8", color="#CBD5E1", style="rounded,filled,dashed"];
+
+        servicedefaults [label=<<B>ServiceDefaults</B><BR/><FONT POINT-SIZE="8">OpenTelemetry &#183; Health checks<BR/>Service discovery &#183; Resilience</FONT>>,
+                 shape=component, fillcolor="#ECFDF5", fontcolor="#047857", color="#34D399"];
     }
-    
-    // Databases Section
-    subgraph cluster_databases {
-        label="Data & Cache";
-        style=dashed;
-        bgcolor="#FFF9E6";
-        
-        postgres [label="PostgreSQL\n(Database)", shape=cylinder, fillcolor="#4DB8FF", fontcolor="white", fontsize=10, fontweight=bold];
-        redis [label="Redis\n(Cache)", shape=cylinder, fillcolor="#DC3545", fontcolor="white", fontsize=10, fontweight=bold];
+
+    /* ===================== BACKING SERVICES (Docker) ====================== */
+    subgraph cluster_data {
+        label=<<FONT POINT-SIZE="12" COLOR="#9A3412"><B>  Backing Services (containers)  </B></FONT>>;
+        labeljust="l";
+        style="rounded,filled";
+        color="#FED7AA";
+        fillcolor="#FFF7ED";
+        margin=16;
+
+        postgres [label=<<B>PostgreSQL</B><BR/><FONT POINT-SIZE="9">catalogdb &#183; data volume</FONT>>,
+                  shape=cylinder, style=filled, fillcolor="#DBEAFE", fontcolor="#1E40AF", color="#3B82F6", penwidth=1.8];
+
+        pgadmin [label=<<B>pgAdmin</B><BR/><FONT POINT-SIZE="8">DB management UI</FONT>>,
+                 fillcolor="#EFF6FF", fontcolor="#1D4ED8", color="#60A5FA"];
+
+        redis [label=<<B>Redis</B><BR/><FONT POINT-SIZE="8">cache<BR/><I>planned</I></FONT>>,
+               shape=cylinder, style="filled,dashed", fillcolor="#F1F5F9", fontcolor="#94A3B8", color="#CBD5E1"];
+
+        rabbitmq [label=<<B>RabbitMQ</B><BR/><FONT POINT-SIZE="8">message broker<BR/><I>planned</I></FONT>>,
+                  style="rounded,filled,dashed", fillcolor="#F1F5F9", fontcolor="#94A3B8", color="#CBD5E1"];
+
+        keycloak [label=<<B>Keycloak</B><BR/><FONT POINT-SIZE="8">OIDC auth<BR/><I>planned</I></FONT>>,
+                  style="rounded,filled,dashed", fillcolor="#F1F5F9", fontcolor="#94A3B8", color="#CBD5E1"];
     }
-    
-    // Infrastructure Section
-    subgraph cluster_infra {
-        label="Infrastructure";
-        style=dashed;
-        bgcolor="#FFE6E6";
-        
-        keycloak [label="Keycloak\n(Authentication)", shape=box, style="rounded,filled", fillcolor="#FFA07A", fontsize=11, fontweight=bold];
-        rabbitmq [label="RabbitMQ\n(Message Broker)", shape=box, style="rounded,filled", fillcolor="#FF8C00", fontsize=10, fontweight=bold];
-    }
-    
-    // Edges - Client to Services
-    webapp -> catalog [label="HTTP/gRPC", fontsize=9, style=solid, penwidth=2];
-    webapp -> basket [label="HTTP/gRPC", fontsize=9, style=solid, penwidth=2];
-    
-    // Edges - Services to Databases
-    catalog -> postgres [label="SQL", fontsize=9, style=solid, penwidth=2];
-    basket -> redis [label="Cache", fontsize=9, style=solid, penwidth=2];
-    
-    // Edges - Services to Infrastructure
-    catalog -> keycloak [label="Auth", fontsize=9, style=dashed, penwidth=1.5];
-    basket -> keycloak [label="Auth", fontsize=9, style=dashed, penwidth=1.5];
-    catalog -> rabbitmq [label="Events", fontsize=9, style=dotted, penwidth=1.5];
-    basket -> rabbitmq [label="Events", fontsize=9, style=dotted, penwidth=1.5];
-    
-    // Edges - Orchestration
-    apphost -> catalog [label="Orchestrates", fontsize=8, style=solid, penwidth=1, constraint=false];
-    apphost -> basket [label="Orchestrates", fontsize=8, style=solid, penwidth=1, constraint=false];
-    
-    // Legend
+
+    /* ============================== EDGES ================================= */
+
+    /* Implemented runtime flow (solid, coloured) */
+    webapp   -> catalog  [label="HTTP / REST", style=dashed, color="#CBD5E1", fontcolor="#94A3B8"];
+    catalog  -> postgres [label="EF Core / Npgsql", color="#10B981", fontcolor="#047857", penwidth=1.8];
+    pgadmin  -> postgres [label="manages", color="#60A5FA", fontcolor="#3B82F6", style=dashed];
+
+    /* Shared config (build-time reference) */
+    catalog  -> servicedefaults [label="uses", style=dotted, color="#34D399", fontcolor="#059669", arrowhead=none];
+
+    /* Aspire orchestration (dotted, does not affect ranking) */
+    apphost  -> catalog  [label="provisions & runs", style=dotted, color="#8B5CF6", fontcolor="#7C3AED", constraint=false];
+    apphost  -> postgres [style=dotted, color="#8B5CF6", constraint=false];
+    apphost  -> pgadmin  [style=dotted, color="#8B5CF6", constraint=false];
+
+    /* Planned flow (faded) */
+    webapp   -> basket   [style=dashed, color="#CBD5E1", fontcolor="#94A3B8"];
+    basket   -> redis    [style=dashed, color="#CBD5E1"];
+    apphost  -> basket   [style=dotted, color="#CBD5E1", constraint=false];
+    catalog  -> rabbitmq [label="events", style=dashed, color="#CBD5E1", fontcolor="#94A3B8"];
+    basket   -> rabbitmq [style=dashed, color="#CBD5E1"];
+    webapp   -> keycloak [label="OIDC", style=dashed, color="#CBD5E1", fontcolor="#94A3B8"];
+
+    /* ============================== LEGEND ================================ */
     subgraph cluster_legend {
-        label="Legend";
-        style=dashed;
-        bgcolor="#F5F5F5";
-        
-        legend1 [label="━━ Synchronous\n- - - Authentication\n· · · Asynchronous", shape=note, fontsize=8, margin="0.2,0.1"];
+        label=<<FONT POINT-SIZE="11" COLOR="#334155"><B>  Legend  </B></FONT>>;
+        labeljust="l";
+        style="rounded,filled";
+        color="#E2E8F0";
+        fillcolor="#F8FAFC";
+        margin=12;
+
+        legend [shape=plaintext, style="", fillcolor="none", label=<
+            <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="4" CELLPADDING="2">
+              <TR><TD ALIGN="LEFT"><FONT COLOR="#10B981"><B>&#9632;</B></FONT></TD><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#334155">Implemented</FONT></TD></TR>
+              <TR><TD ALIGN="LEFT"><FONT COLOR="#CBD5E1"><B>&#9633;</B></FONT></TD><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#64748B">Planned (roadmap)</FONT></TD></TR>
+              <TR><TD ALIGN="LEFT"><FONT COLOR="#10B981"><B>&#8212;&#8212;</B></FONT></TD><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#334155">Synchronous call</FONT></TD></TR>
+              <TR><TD ALIGN="LEFT"><FONT COLOR="#8B5CF6"><B>&#183;&#183;&#183;</B></FONT></TD><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#334155">Aspire orchestration</FONT></TD></TR>
+              <TR><TD ALIGN="LEFT"><FONT COLOR="#94A3B8"><B>- -</B></FONT></TD><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#334155">Planned / async</FONT></TD></TR>
+            </TABLE>
+        >];
     }
 }
-
