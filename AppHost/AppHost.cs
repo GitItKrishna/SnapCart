@@ -17,7 +17,7 @@ var postgres = builder
 var catalogDb = postgres.AddDatabase("catalogdb");
 
 var redisCache = builder
-    .AddRedis("redis")
+    .AddRedis("cache")
     .WithRedisInsight()
     .WithDataVolume()
     .WithLifetime(ContainerLifetime.Persistent);

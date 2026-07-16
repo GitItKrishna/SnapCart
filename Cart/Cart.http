@@ -1,6 +1,21 @@
-@Cart_HostAddress = http://localhost:5256
+@Cart_HostAddress = https://localhost:7119
+@userId = alice
 
-GET {{Cart_HostAddress}}/weatherforecast/
+### Create / update a cart (upsert)
+POST {{Cart_HostAddress}}/cart
+Content-Type: application/json
+
+{
+  "userName": "alice",
+  "items": [
+    { "productId": 1, "productName": "Keyboard", "color": "Black", "quantity": 2, "price": 79.99 },
+    { "productId": 2, "productName": "Mouse", "color": "White", "quantity": 1, "price": 29.99 }
+  ]
+}
+
+### Get a cart by user id
+GET {{Cart_HostAddress}}/cart/{{userId}}
 Accept: application/json
 
-###
+### Clear a cart
+DELETE {{Cart_HostAddress}}/cart/{{userId}}
