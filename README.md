@@ -1,9 +1,9 @@
 # SnapCart Distributed — Microservices E-commerce Platform
 
-![Architecture Diagram](./architecture.svg)
+![Architecture Diagram](./architecture.png)
 
 > **Diagram key:** Solid coloured nodes are **implemented today**. Faded/dashed nodes are **planned (roadmap)**.
-> Regenerate the diagram source: `dot -Tsvg architecture.dot -o architecture.svg` or `rsvg-convert -w 1400 -h 840 architecture.svg -o architecture.png`
+> Source: [`architecture.dot`](./architecture.dot) · Regenerate: `dot -Tsvg architecture.dot -o architecture.svg && rsvg-convert -w 1400 -h 840 architecture.svg -o architecture.png`
 
 ---
 
