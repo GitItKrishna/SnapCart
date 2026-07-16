@@ -21,6 +21,8 @@ builder.AddProject<Projects.Catalog>("catalog")
     .WithReference(catalogDb)
     .WaitFor(catalogDb);
 
+builder.AddProject<Projects.Cart>("cart");
+
 builder.Build().Run();
 
 // add backing services below.
