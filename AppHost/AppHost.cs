@@ -16,12 +16,20 @@ var postgres = builder
 
 var catalogDb = postgres.AddDatabase("catalogdb");
 
+var redisCache = builder
+    .AddRedis("redis")
+    .WithRedisInsight()
+    .WithDataVolume()
+    .WithLifetime(ContainerLifetime.Persistent);
+
 //projects
 builder.AddProject<Projects.Catalog>("catalog")
     .WithReference(catalogDb)
     .WaitFor(catalogDb);
 
-builder.AddProject<Projects.Cart>("cart");
+builder.AddProject<Projects.Cart>("cart")
+    .WithReference(redisCache)
+    .WaitFor(redisCache);
 
 builder.Build().Run();
 

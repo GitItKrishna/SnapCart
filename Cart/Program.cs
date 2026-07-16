@@ -1,7 +1,12 @@
+using Cart.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.AddServiceDefaults();
+builder.AddRedisDistributedCache(connectionName: "cache"); //this looks for a connection string with the name "connectionstrings_cache"
+builder.Services.AddScoped<CartService>();
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
