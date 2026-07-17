@@ -1,6 +1,6 @@
 namespace Cart.Services;
 
-public class CartService(IDistributedCache cache)
+public class CartService(IDistributedCache cache, CatalogApiClient catalogApiClient)
 {
     public async Task<ShoppingCart?> GetCart(string userId)
     {
@@ -10,6 +10,13 @@ public class CartService(IDistributedCache cache)
     }
     public async Task UpdateCart(ShoppingCart cart)
     {
+        //Before updating the cart, call CatalogApiClient to get the product details
+        foreach (var item in cart.Items)
+        {
+            var product = await catalogApiClient.GetProductById(item.ProductId);    
+            item.Price = product.Price;
+            item.ProductName = product.Name;
+        }
         await cache.SetStringAsync(cart.UserName!, System.Text.Json.JsonSerializer.Serialize(cart));
     }
     public async Task ClearCart(string userName)

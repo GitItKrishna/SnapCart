@@ -1,12 +1,13 @@
-using Cart.Services;
-using FastEndpoints;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.AddServiceDefaults();
 builder.AddRedisDistributedCache(connectionName: "cache"); //this looks for a connection string with the name "connectionstrings_cache"
 builder.Services.AddScoped<CartService>();
+builder.Services.AddHttpClient<CatalogApiClient>(client =>
+{
+    client.BaseAddress = new Uri("https+http://catalog/");
+});
 builder.Services.AddFastEndpoints(config =>
 {
     config.Assemblies = new[] { typeof(Program).Assembly };

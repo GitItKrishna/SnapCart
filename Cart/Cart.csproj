@@ -13,4 +13,7 @@
         <ProjectReference Include="..\ServiceDefaults\ServiceDefaults.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Include="..\Catalog\Models\Product.cs" Link="Models\Product.cs" />
+    </ItemGroup>
 </Project>
